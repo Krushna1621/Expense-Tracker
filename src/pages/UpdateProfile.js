@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import classes from './UpdateProfile.module.css'
 import axios from 'axios'
 import AuthContext from '../store/auth-context'
@@ -7,6 +7,24 @@ const UpdateProfile = () => {
   const authCtx = useContext(AuthContext)
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.post(
+          'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBUKWtuc6mChahG1mskYlsoKXzaEc-y9ME',
+          { idToken: authCtx.token }
+        )
+        const user = res.data.users[0]
+        console.log(user)
+        setName(user.displayName)
+        setUrl(user.photoUrl)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
 
   const updateHandler = async (e) => {
     e.preventDefault()
@@ -20,21 +38,14 @@ const UpdateProfile = () => {
     const body = JSON.stringify(data)
     console.log(data)
     const resp = await axios.post(
-      'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyApPH8B3g__28GeXUzcGu6r_ah07K2i39w',
+      'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBUKWtuc6mChahG1mskYlsoKXzaEc-y9ME',
       data
     )
     console.log(resp)
-    try {
-      const user = await axios.post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyApPH8B3g__28GeXUzcGu6r_ah07K2i39w',
-        { idToken: authCtx.token }
-      )
-      console.log('------------------------------------------------------')
-      // const res = user.json()
-      console.log(user)
-    } catch (error) {
-      console.log(error)
-    }
+    const user = resp.data
+    console.log(user)
+    setName(user.displayName)
+    setUrl(user.photoUrl)
   }
 
   return (
@@ -61,6 +72,7 @@ const UpdateProfile = () => {
             <input
               id='name'
               type='text'
+              value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -69,6 +81,7 @@ const UpdateProfile = () => {
             <input
               id='image'
               type='url'
+              value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
           </div>

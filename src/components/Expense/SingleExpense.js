@@ -12,13 +12,14 @@ const SingleExpense = ({ item }) => {
   const deleteHandler = async () => {
     try {
       const resp = await axios.delete(
-        `https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expensedata/${item.id}.json`
+        `https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expenses/${item.id}.json`
+      
       )
       console.log(resp)
       if (resp.status === 200) {
         console.log('ExpenseDeleted successfully...')
         const res = await axios.get(
-          'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expensedata.json'
+          'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expenses.json'
         )
         if (res.status === 200) {
           const data = res.data

@@ -25,7 +25,8 @@ const EditExpense = () => {
       setIsLoading(true)
       try {
         const resp = await axios.delete(
-          `https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expensedata/${editData.id}.json`
+          `https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expenses/${editData.id}.json`
+       
    
         )
         console.log(resp)
@@ -45,7 +46,7 @@ const EditExpense = () => {
 
       try {
         const resp = await axios.post(
-          'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expensedata.json',
+          'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expenses.json',
           {
             body: JSON.stringify(expense),
             headers: {
@@ -55,7 +56,7 @@ const EditExpense = () => {
         )
         if (resp.status === 200) {
           const res = await axios.get(
-            'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expensedata.json'
+            'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expenses.json'
           )
           if (res.status === 200) {
             setIsLoading(false)

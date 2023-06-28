@@ -12,7 +12,7 @@ const ExpenseList = () => {
   useEffect(() => {
     async function fetchHandler() {
       const res = await axios.get(
-        'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expensedata.json'
+        'https://react-expense-data-traker-http-default-rtdb.firebaseio.com/expenses.json'
       )
       if (res.status === 200) {
         const data = res.data

@@ -9,6 +9,7 @@ const EditExpense = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const editData = useSelector((state) => state.expense.editData)
+  const email=useSelector((state) => state.auth.email)
   const [money, setMoney] = useState(editData.money)
   const [description, setDescription] = useState(editData.description)
   const [category, setCategory] = useState(editData.category)
@@ -21,6 +22,7 @@ const EditExpense = () => {
         money: money,
         description: description,
         category: category,
+        email:email,
       }
       setIsLoading(true)
       try {

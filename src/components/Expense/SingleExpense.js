@@ -1,13 +1,18 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import classes from './SingleExpense.module.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { expenseActions } from '../../store/expenseSlice'
 import axios from 'axios'
+
+
 
 const SingleExpense = ({ item }) => {
   const dispatch = useDispatch()
   const history = useHistory()
+
+  const semail=useSelector((state) => state.auth.email)
+  
 
   const deleteHandler = async () => {
     try {
@@ -33,9 +38,10 @@ const SingleExpense = ({ item }) => {
               money: parsedData.money,
               description: parsedData.description,
               category: parsedData.category,
+              email: parsedData.email,
             })
           }
-          console.log(loadArray)
+          // console.log(loadArray)
           dispatch(expenseActions.addExpense(loadArray))
         } else {
           alert('Something went wrong please Refresh Page...')
@@ -54,7 +60,13 @@ const SingleExpense = ({ item }) => {
     history.replace('/edit-expense')
   }
 
+    console.log();
+    if(semail===item["email"])
+    {
   return (
+    
+    
+
     <div className={classes.item}>
       <li className={classes.listItem}>
         <div className={classes.header}>
@@ -83,7 +95,10 @@ const SingleExpense = ({ item }) => {
         </p>
       </li>
     </div>
-  )
+    
+    )
+  }
 }
+  
 
 export default SingleExpense

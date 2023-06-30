@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import classes from './AddExpense.module.css'
 import axios from 'axios'
 import { expenseActions } from '../../store/expenseSlice'
 
 const AddExpense = () => {
   const dispatch = useDispatch()
+  const email=useSelector((state) => state.auth.email)
+  
   const [money, setMoney] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('Food')
@@ -17,6 +19,7 @@ const AddExpense = () => {
         money: money,
         description: description,
         category: category,
+        email: email,
       }
       try {
         const resp = await axios.post(

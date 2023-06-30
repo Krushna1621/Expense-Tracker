@@ -71,6 +71,7 @@ const EditExpense = () => {
                 money: parsedData.money,
                 description: parsedData.description,
                 category: parsedData.category,
+                email: parsedData.email,
               })
             }
             console.log(loadArray)

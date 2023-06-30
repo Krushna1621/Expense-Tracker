@@ -60,13 +60,9 @@ const SingleExpense = ({ item }) => {
     history.replace('/edit-expense')
   }
 
-    console.log();
-    if(semail===item["email"])
-    {
+  if(semail===item["email"])
+ {
   return (
-    
-    
-
     <div className={classes.item}>
       <li className={classes.listItem}>
         <div className={classes.header}>

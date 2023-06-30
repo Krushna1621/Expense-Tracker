@@ -26,9 +26,11 @@ const ExpenseList = () => {
             money: parsedData.money,
             description: parsedData.description,
             category: parsedData.category,
+            email: parsedData.email,
           })
         }
-        console.log(loadArray)
+        
+        
         dispatch(expenseActions.addExpense(loadArray))
         // if (expenses.length === 0) {
         // expenses = loadArray
